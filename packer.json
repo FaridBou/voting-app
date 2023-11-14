@@ -1,0 +1,13 @@
+{
+    "builders": [{
+      "type": "docker",
+      "image": "ubuntu:latest",
+      "export_path": "output-docker-image.tar",
+      "commit": true
+    }],
+    "provisioners": [{
+      "type": "ansible",
+      "playbook_file": "PlaybookAnsible.yml"
+    }]
+  }
+  

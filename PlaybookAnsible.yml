@@ -1,0 +1,50 @@
+---
+- name: PlaybookAnsible Voting App
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: Install required packages
+      apt:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - python3
+        - python3-pip
+        - docker.io
+
+    - name: Install Ansible dependencies
+      pip:
+        name: ansible
+
+    - name: Copy Voting App code
+      copy:
+        src: c:\Users\k1rif\OneDrive\Bureau\Formation\Devops\voting-app
+        dest: https://github.com/FaridBou/voting-app.git
+      notify: Restart Voting App
+
+    - name: Update apt cache for Bootstrap
+      apt:
+        update_cache: yes
+
+    - name: Install Node.js and npm
+      apt:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - nodejs
+        - npm
+
+    - name: Install Bootstrap using npm
+      shell: npm install -g bootstrap
+
+
+  handlers:
+    - name: Restart Voting App
+      systemd:
+        name: voting-app
+        state: restarted
