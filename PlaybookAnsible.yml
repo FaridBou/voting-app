@@ -21,6 +21,12 @@
       pip:
         name: ansible
 
+      - name: "Install Nginx server if missing"
+      apt:
+        name: nginx
+        state: present
+      when: "'nginx' not in ansible_facts.packages"
+
     - name: Copy Voting App code
       copy:
         src: c:\Users\k1rif\OneDrive\Bureau\Formation\Devops\voting-app
