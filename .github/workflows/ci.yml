@@ -21,7 +21,7 @@ jobs:
         run: pip install pylint
 
       - name: Lint Python Code
-        run: pylint /path/to/your/code
+        run: pylint ./
 
   security_scan:
     runs-on: ubuntu-latest
@@ -38,7 +38,7 @@ jobs:
         run: pip install bandit
 
       - name: Run Security Scan
-        run: bandit -r /path/to/your/code
+        run: bandit -r ./
 
   build_packer:
     runs-on: ubuntu-latest
@@ -55,4 +55,4 @@ jobs:
           rm packer.zip
 
       - name: Run Packer
-        run: packer build -machine-readable packer.json
+        run: packer build -machine-readable packer.pkr.hcl
